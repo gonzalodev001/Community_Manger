@@ -21,6 +21,16 @@ doctrine:
                 type: xml
                 dir: '%kernel.project_dir%/src/CommunityType/Infrastructure/Persistence/Doctrine/Resources/Mapping'
                 prefix: 'App\CommunityType\Domain\Aggregate'
+            AppAssociationDomainAggregate:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Association/Infrastructure/Persistence/Doctrine/Resources/Mapping'
+                prefix: 'App\Association\Domain\Aggregate'
+            AppCommunityDomainAggregate:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Community/Infrastructure/Persistence/Doctrine/Resources/Mapping'
+                prefix: 'App\Community\Domain\Aggregate'
 
 
 when@test:

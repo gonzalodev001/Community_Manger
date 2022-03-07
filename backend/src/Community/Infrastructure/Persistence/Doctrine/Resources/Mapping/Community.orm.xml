@@ -4,12 +4,13 @@
                     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                         https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Community\Infrastructure\Framework\Entity\SymfonyCommunity" table="community">
+    <entity name="App\Community\Domain\Aggregate\Community" table="community">
         <id name="id" type="string" column="id"  length="36"/>
 
         <field name="address" length="100" column="address" unique="true"/>
-        <field name="municipality" length="100" column="municipality" unique="true"/>
-        <field name="communityTypeId" length="36" column="community_type_id" unique="true"/>
+        <field name="municipality" length="100" column="municipality"/>
+        <field name="communityTypeId" length="36" column="community_type_id" />
+        <field name="associationId" length="36" column="association_id"/>
         <!--<field name="createdAt" type="datetime"  column="createdAt"/>
         <field name="updatedAt" type="datetime" column="updatedAt"/>-->
 

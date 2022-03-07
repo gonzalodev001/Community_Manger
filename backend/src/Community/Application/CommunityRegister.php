@@ -11,9 +11,10 @@ class CommunityRegister
     {
     }
 
-    public function __invoke(string $id, string $address, string $municipality, string $communityTypeId): void
+    public function __invoke(string $id, string $address, string $municipality, string $communityTypeId, string $associationId): void
     {
-        $community = Community::registerCommunity($id, $address, $municipality, $communityTypeId);
+        $community = Community::registerCommunity($id, $address, $municipality, $communityTypeId, $associationId);
+
         $this->repository->save($community);
     }
 }

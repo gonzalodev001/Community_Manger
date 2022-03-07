@@ -1,22 +1,21 @@
 <?php
 
 
-namespace App\Association\Domain;
+namespace App\Association\Domain\Aggregate;
 
 
 class Association
 {
 
     private string $id;
-    private string $municipality;
+    //private string $municipality;
     private string $postalCode;
     private string $description;
 
 
-    public function __construct(string $id, string $municipality, string $postalCode, string $description)
+    private function __construct(string $id, string $postalCode, string $description)
     {
         $this->id = $id;
-        $this->municipality = $municipality;
         $this->postalCode = $postalCode;
         $this->description = $description;
     }
@@ -26,10 +25,10 @@ class Association
         return $this->id;
     }
 
-    public function getMunicipality(): string
+    /*public function getMunicipality(): string
     {
         return $this->municipality;
-    }
+    }*/
 
     public function getPostalCode(): string
     {
@@ -41,9 +40,9 @@ class Association
         return $this->description;
     }
 
-    public static function registerAssociation(string $id, string $municipality, string $postalCode, string $description): self
+    public static function registerAssociation(string $id, string $postalCode, string $description): Association
     {
-
+        return new self($id, $postalCode, $description);
     }
 
 }
