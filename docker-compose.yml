@@ -1,0 +1,90 @@
+version: '3.5'
+
+services:
+  community-manager-web:
+    container_name: community-manager-web
+    build:
+      context: ./docker/nginx
+      args:
+        UID: $U_ID
+    ports:
+      - 8000:80
+    volumes:
+      - ./backend/public:/appdata/www/public
+    networks:
+      - community-manager-network
+    depends_on:
+      - community-manager-backend
+      - community-manager-frontend
+
+  community-manager-backend:
+    container_name: community-manager-backend
+    build:
+      context: ./docker/php
+      args:
+        UID: $U_ID
+    environment:
+      PHP_IDE_CONFIG: serverName=Docker
+      PHP_XDEBUG_ENABLED: 1
+      XDEBUG_CONFIG: remote_host=172.17.0.1 remote_port=9005
+    volumes:
+      - ./backend:/appdata/www
+      - ./docker/php/xdebug-linux.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
+    networks:
+      - community-manager-network
+    depends_on:
+      - community-manager-db
+
+  community-manager-db:
+    container_name: community-manager-db
+    image: mysql:8.0
+    ports:
+      - 40000:3306
+    env_file:
+      - ${PWD}/docker.env
+    command: mysqld --sql_mode="STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION"
+    volumes:
+      - community-manager-database-data:/var/lib/mysql
+    networks:
+      - community-manager-network
+
+  community-manager-frontend:
+    container_name: community-manager-frontend
+    build:
+      context: ./frontend
+      args:
+        UID: $U_ID
+    tty: true
+    ports:
+    - 8080:80
+    volumes:
+    #- /frontend/node_modules
+    - ./frontend:/frontend
+    networks:
+      - community-manager-network
+###> doctrine/doctrine-bundle ###
+    #  database:
+    #image: postgres:${POSTGRES_VERSION:-13}-alpine
+      #environment:
+      #POSTGRES_DB: ${POSTGRES_DB:-app}
+      # You should definitely change the password in production
+      #POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
+      #POSTGRES_USER: ${POSTGRES_USER:-symfony}
+      #volumes:
+      #- db-data:/var/lib/postgresql/data:rw
+      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/db/data:/var/lib/postgresql/data:rw
+###< doctrine/doctrine-bundle ###
+
+volumes:
+
+###> doctrine/doctrine-bundle ###
+  #db-data:
+###< doctrine/doctrine-bundle ###
+  community-manager-database-data:
+
+networks:
+  community-manager-network:
+    external: true
+
