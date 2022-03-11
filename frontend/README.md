@@ -1,24 +1,37 @@
-# frontend
+# Quasar App (frontend)
 
-## Project setup
-```
-npm install
-```
+A Quasar Framework app
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+## Install the dependencies
+
+```bash
+yarn
 ```
 
-### Compiles and minifies for production
-```
-npm run build
+### Start the app in development mode (hot-code reloading, error reporting, etc.)
+
+```bash
+quasar dev
 ```
 
-### Lints and fixes files
-```
-npm run lint
+### Lint the files
+
+```bash
+yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Format the files
+
+```bash
+yarn format
+```
+
+### Build the app for production
+
+```bash
+quasar build
+```
+
+### Customize the configuration
+
+See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
