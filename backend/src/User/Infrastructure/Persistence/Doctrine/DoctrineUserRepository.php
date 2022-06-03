@@ -15,7 +15,7 @@ class DoctrineUserRepository implements UserRepository
     {
     }
 
-    public function save(User $user): void
+    public function save(User $user): string
     {
         $symfonyUser = new SymfonyUser(
             $user->id()->value(),
@@ -23,7 +23,8 @@ class DoctrineUserRepository implements UserRepository
             $user->password()->password(),
             $user->roles(),
             $user->getCreatedAt(),
-            $user->getUpdatedAt()
+            $user->getUpdatedAt(),
+            $user->communityId()->value()
         );
         $hashedPassword = $this->passwordHasher->hashPassword(
             $symfonyUser,
@@ -33,6 +34,8 @@ class DoctrineUserRepository implements UserRepository
         $symfonyUser->setHashedPassword($hashedPassword);
         $this->entityManager->persist($symfonyUser);
         $this->entityManager->flush();
+
+        return $symfonyUser->getId();
     }
 
     public function findUser(string $userName): User

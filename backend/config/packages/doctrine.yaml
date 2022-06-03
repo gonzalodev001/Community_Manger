@@ -31,7 +31,11 @@ doctrine:
                 type: xml
                 dir: '%kernel.project_dir%/src/Community/Infrastructure/Persistence/Doctrine/Resources/Mapping'
                 prefix: 'App\Community\Domain\Aggregate'
-
+            AppPersonDomainAggragate:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Person/Infrastructure/Persistence/Doctrine/Resources/Mapping'
+                prefix: 'App\Person\Domain\Aggregate'
 
 when@test:
     doctrine:

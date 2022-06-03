@@ -13,8 +13,8 @@ RUN npm install -g @quasar/cli
 RUN npm install
 #Comment down line
 COPY ./ .
-#Comment down line
-RUN quasar build
+#Comment down line for enviroment production
+#RUN quasar build
 #Comment down lines to final
 #production stage
 FROM nginx:1.21 AS production-stage

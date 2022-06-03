@@ -18,6 +18,7 @@ class SymfonyUser implements UserInterface, PasswordAuthenticatedUserInterface
         private array $roles,
         private \DateTime $createdAt,
         private \DateTime $updatedAt,
+        private string $communityId
     )
     {
     }
@@ -28,6 +29,14 @@ class SymfonyUser implements UserInterface, PasswordAuthenticatedUserInterface
     public function getId(): string
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommunityId(): string
+    {
+        return $this->communityId;
     }
 
     /**

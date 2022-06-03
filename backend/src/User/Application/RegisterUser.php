@@ -15,14 +15,15 @@ class RegisterUser
 
     }
 
-    public function __invoke(string $id, string $email, string $password, string $confirmpassword)
+    public function __invoke(string $id, string $email, string $password, string $confirmpassword, string $communityId): string
     {
         $id = new Uuid($id);
         $email = new Email($email);
         $password = new Password($password);
         $confirmPassword = new Password($confirmpassword);
-        $user = User::registerUser($id, $email, $password, $confirmPassword);
+        $communityId = new Uuid($communityId);
+        $user = User::registerUser($id, $email, $password, $confirmPassword, $communityId);
 
-        $this->userRepository->save($user);
+        return $this->userRepository->save($user);
     }
 }

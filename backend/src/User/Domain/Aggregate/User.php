@@ -18,14 +18,16 @@ class User
     private DateTime $createdAt;
     private DateTime $updatedAt;
     private array $roles;
+    private  Uuid $communityId;
 
-    public function __construct(Uuid $id, Email $email, Password $password)
+    public function __construct(Uuid $id, Email $email, Password $password, Uuid $communityId)
     {
         $this->id = $id;
         $this->email = $email;
         $this->password = $password;
         $this->createdAt = new DateTime();
         $this->roles[] = 'ROLE_USER';
+        $this->communityId = $communityId;
         $this->markAsUpdated();
     }
 
@@ -58,16 +60,21 @@ class User
         return $this->roles;
     }
 
+    public function communityId(): Uuid
+    {
+        return $this->communityId;
+    }
+
     protected function addRole(string $role): array
     {
         $this->roles[] = 'ROLE_'.filter_var($role, FILTER_SANITIZE_STRING);
         return $this->roles();
     }
 
-    public static function registerUser(Uuid $id, Email $email, Password $password, Password $confirmPassword): User
+    public static function registerUser(Uuid $id, Email $email, Password $password, Password $confirmPassword, Uuid $communityId): User
     {
         self::validatePasswords($password, $confirmPassword);
-        return new self ($id, $email, $password);
+        return new self ($id, $email, $password, $communityId);
     }
 
     public function Login(string $password): void

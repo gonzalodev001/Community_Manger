@@ -40,6 +40,18 @@ import EssentialLink from "components/EssentialLink.vue";
 
 const linksList = [
   {
+    title: "Tipos de Comunidad",
+    caption: "Registrar un propietario a una comunidad",
+    icon: "school",
+    link: "community_types",
+  },
+  {
+    title: "Registrar Propietario",
+    caption: "Registrar un propietario a una comunidad",
+    icon: "school",
+    link: "register_owner",
+  },
+  {
     title: "Docs",
     caption: "quasar.dev",
     icon: "school",
@@ -52,28 +64,10 @@ const linksList = [
     link: "https://github.com/quasarframework",
   },
   {
-    title: "Discord Chat Channel",
-    caption: "chat.quasar.dev",
-    icon: "chat",
-    link: "https://chat.quasar.dev",
-  },
-  {
     title: "Forum",
     caption: "forum.quasar.dev",
     icon: "record_voice_over",
     link: "https://forum.quasar.dev",
-  },
-  {
-    title: "Twitter",
-    caption: "@quasarframework",
-    icon: "rss_feed",
-    link: "https://twitter.quasar.dev",
-  },
-  {
-    title: "Facebook",
-    caption: "@QuasarFramework",
-    icon: "public",
-    link: "https://facebook.quasar.dev",
   },
   {
     title: "Quasar Awesome",

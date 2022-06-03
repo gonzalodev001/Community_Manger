@@ -53,14 +53,16 @@ services:
     container_name: community-manager-frontend
     build:
       context: ./frontend
+      target: 'build-stage'
       args:
         UID: $U_ID
     tty: true
     ports:
-    - 8080:80
+    - 8080:8080
     volumes:
     #- /frontend/node_modules
     - ./frontend:/frontend
+    command: /bin/sh -c "yarn && quasar dev"
     networks:
       - community-manager-network
 ###> doctrine/doctrine-bundle ###
