@@ -5,7 +5,8 @@ const routes = [
     children: [
       { path: "", component: () => import("pages/Index.vue") },
       { path: "community_types", name: "community_types", component: () => import("pages/CommunityType.vue") },
-      { path: "user", name: "register_owner", component: () => import("pages/RegisterOwner.vue") }
+      { path: "user", name: "register_owner", component: () => import("pages/RegisterOwner.vue") },
+      { path: "community", name: "community", component: () => import("pages/Community.vue") }
     ],
   },
 

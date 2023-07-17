@@ -13,7 +13,9 @@
 
         <q-toolbar-title> Quasar App </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>
+          <q-btn color="white" text-color="primary" @click="logout" label="Logout" />
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -52,6 +54,12 @@ const linksList = [
     link: "register_owner",
   },
   {
+    title: "Registrar Comunidad",
+    caption: "Registrar una comunidad",
+    icon: "school",
+    link: "community",
+  },
+  {
     title: "Docs",
     caption: "quasar.dev",
     icon: "school",
@@ -77,7 +85,9 @@ const linksList = [
   },
 ];
 
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref} from "vue";
+import {useStore} from 'vuex'
+import {useRouter} from 'vue-router'
 
 export default defineComponent({
   name: "MainLayout",
@@ -87,7 +97,15 @@ export default defineComponent({
   },
 
   setup() {
+    const store = useStore()
+    const router = useRouter()
     const leftDrawerOpen = ref(false);
+
+    const logout = () => {
+      store.dispatch('auth/singOut')
+      router.push('/login')
+      console.log('logout')
+    }
 
     return {
       essentialLinks: linksList,
@@ -95,6 +113,7 @@ export default defineComponent({
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
+      logout
     };
   },
 });

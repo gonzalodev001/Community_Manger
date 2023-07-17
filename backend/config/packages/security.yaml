@@ -38,6 +38,7 @@ security:
         - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY  }
         - { path: ^/api/community_types, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/communities, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 

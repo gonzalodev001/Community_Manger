@@ -19,24 +19,24 @@
             <div class="row">
               <div class="col-6">
                 <q-item>
-                  <q-input dense outlined class="full-width" v-model="personUser.person.firstName" label="First Name *"/>
+                  <q-input dense outlined class="full-width" v-model="personUser.person.firstName" label="Nombre*"/>
                 </q-item>
               </div>
               <div class="col-6">
                 <q-item>
-                  <q-input dense outlined class="full-width" v-model="personUser.person.lastName" label="Last Name *"/>
+                  <q-input dense outlined class="full-width" v-model="personUser.person.lastName" label="Apellidos*"/>
                 </q-item>
               </div>
               <div class="col-12">
                 <q-item>
                   <q-input dense autogrow outlined v-model="personUser.person.document" class="full-width"
-                           label="Address line 1 *"/>
+                           label="Documento *"/>
                 </q-item>
               </div>
               <div class="col-12">
                 <q-item>
                   <q-input dense autogrow outlined v-model="personUser.person.phone" class="full-width"
-                           label="Address line 2 *"/>
+                           label="Teléfono *"/>
                 </q-item>
               </div>
               <!--<div class="col-12">

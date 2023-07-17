@@ -24,6 +24,7 @@ class RegisterPostController extends AbstractController
     {
         $id = Uuid::v4()->toRfc4122();
         $data = $request->toArray();
+        dd($data);die();
         $this->communityRegister->__invoke(
             $id,
             $data['address'],

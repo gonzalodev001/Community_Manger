@@ -15,6 +15,11 @@ export const doLoginAction = async ({ commit, dispatch }, payload) => {
   })
 }
 
+export const singOut = ({ commit }) => {
+  api.defaults.headers.common['Authorization'] = ''
+  commit('removeToken')
+}
+
 export const getMeAction = async ({ commit }, token) => {
   console.log(token)
 }
