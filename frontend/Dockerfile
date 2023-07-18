@@ -13,9 +13,10 @@ RUN npm install -g @quasar/cli
 RUN npm install
 #Comment down line
 COPY ./ .
-#Comment down line for enviroment production
+#Descomment the line RUN quasar build when is the first time build docker image
+#Comment down line for enviroment production after build docker iamge
 #RUN quasar build
-#Comment down lines to final
+#Comment down lines to final production-stage when is the first time build docker image
 #production stage
 FROM nginx:1.21 AS production-stage
 #COPY default.conf /etc/nginx/conf.d/
