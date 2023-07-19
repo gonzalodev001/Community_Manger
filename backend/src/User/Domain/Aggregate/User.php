@@ -2,6 +2,7 @@
 
 namespace App\User\Domain\Aggregate;
 
+use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\User\Domain\Exceptions\InvalidConfirmPassword;
@@ -9,9 +10,8 @@ use App\User\Domain\Exceptions\InvalidPasswordUser;
 use App\User\Domain\ValueObject\Password;
 use DateTime;
 
-class User
+class User extends AggregateRoot
 {
-
     private Uuid $id;
     private Email $email;
     private Password $password;
@@ -20,7 +20,7 @@ class User
     private array $roles;
     private  Uuid $communityId;
 
-    public function __construct(Uuid $id, Email $email, Password $password, Uuid $communityId)
+    private function __construct(Uuid $id, Email $email, Password $password, Uuid $communityId)
     {
         $this->id = $id;
         $this->email = $email;
@@ -74,7 +74,12 @@ class User
     public static function registerUser(Uuid $id, Email $email, Password $password, Password $confirmPassword, Uuid $communityId): self
     {
         self::validatePasswords($password, $confirmPassword);
-        return new self ($id, $email, $password, $communityId);
+
+        $user = new self ($id, $email, $password, $communityId);
+        
+        $user->record(new UserRegisteredDomainEvent($id->value(), $email->email(), $communityId->value()));
+
+        return $user;
     }
 
     public function Login(string $password): void
