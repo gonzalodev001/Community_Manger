@@ -12,6 +12,9 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     _instanceof:
+        App\Shared\Domain\Bus\Event\DomainEventSubscriber:
+            tags: ['internal.domain_event_subscriber']
+
         App\Shared\Domain\Bus\Command\CommandHandler:
             tags: ['internal.command_handler']
 
@@ -25,9 +28,14 @@ services:
             - '../src/Kernel.php'
 
     ## Buses
+    App\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyCommandBus:
+        arguments: [!tagged internal.domain_event_subscriber]
+        lazy: true
+
     ## App\Shared\Domain\Bus\Command\CommandBus:
-    App\Shared\Infrastructure\Bus\Command\InMemorySymfonyCommandBus:
         ## class: App\Shared\Infrastructure\Bus\Command\InMemorySymfonyCommandBus
+    App\Shared\Infrastructure\Bus\Command\InMemorySymfonyCommandBus:
         arguments: [!tagged internal.command_handler]
+    
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
