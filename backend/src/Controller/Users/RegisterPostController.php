@@ -5,8 +5,7 @@ namespace App\Controller\Users;
 
 
 use App\Person\Application\RegisterPersonUseCase;
-use App\User\Application\RegisterUser;
-use mysql_xdevapi\Exception;
+use App\User\Application\Register\RegisterUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

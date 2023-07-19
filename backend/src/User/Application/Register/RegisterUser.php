@@ -1,6 +1,6 @@
 <?php
 
-namespace App\User\Application;
+namespace App\User\Application\Register;
 
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\Uuid;

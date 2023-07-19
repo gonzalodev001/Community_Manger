@@ -80,6 +80,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.7"
     },
+    "lambdish/phunctional": {
+        "version": "v2.1.0"
+    },
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
@@ -131,6 +134,9 @@
     "psr/log": {
         "version": "2.0.0"
     },
+    "symfony/amqp-messenger": {
+        "version": "v5.4.22"
+    },
     "symfony/cache": {
         "version": "v5.4.5"
     },
@@ -160,6 +166,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v5.4.5"
+    },
+    "symfony/doctrine-messenger": {
+        "version": "v5.4.25"
     },
     "symfony/dotenv": {
         "version": "v5.4.5"
@@ -225,6 +234,18 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/messenger": {
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.4",
+            "ref": "8bd5f27013fb1d7217191c548e340f0bdb11912c"
+        },
+        "files": [
+            "config/packages/messenger.yaml"
+        ]
+    },
     "symfony/password-hasher": {
         "version": "v5.4.3"
     },
@@ -260,6 +281,9 @@
     },
     "symfony/proxy-manager-bridge": {
         "version": "v5.4.3"
+    },
+    "symfony/redis-messenger": {
+        "version": "v5.4.23"
     },
     "symfony/routing": {
         "version": "5.4",

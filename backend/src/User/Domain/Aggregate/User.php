@@ -71,7 +71,7 @@ class User
         return $this->roles();
     }
 
-    public static function registerUser(Uuid $id, Email $email, Password $password, Password $confirmPassword, Uuid $communityId): User
+    public static function registerUser(Uuid $id, Email $email, Password $password, Password $confirmPassword, Uuid $communityId): self
     {
         self::validatePasswords($password, $confirmPassword);
         return new self ($id, $email, $password, $communityId);

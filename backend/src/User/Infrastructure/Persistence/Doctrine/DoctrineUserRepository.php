@@ -38,8 +38,9 @@ class DoctrineUserRepository implements UserRepository
         return $symfonyUser->getId();
     }
 
-    public function findUser(string $userName): User
+    public function findUser(string $userName): ?User
     {
-
+        //$user = new User("", );
+        return null;
     }
 }
