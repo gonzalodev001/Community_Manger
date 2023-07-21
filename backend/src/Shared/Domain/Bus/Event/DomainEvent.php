@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Bus\Event;
 
-use CodelyTv\Shared\Domain\Utils;
+use App\Shared\Domain\Utils;
 //use CodelyTv\Shared\Domain\ValueObject\Uuid;
 use Symfony\Component\Uid\Uuid;
 use DateTimeImmutable;

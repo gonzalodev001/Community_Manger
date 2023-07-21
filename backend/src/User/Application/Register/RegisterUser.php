@@ -16,14 +16,9 @@ class RegisterUser
 
     }
 
-    public function __invoke(string $id, string $email, string $password, string $passwordConfirmed, string $communityId): string
+    public function __invoke(Uuid $id, Email $email, Password $password, Password $passwordConfirmed, Uuid $communityId): string
     {
-        $id = new Uuid($id);
-        $email = new Email($email);
-        $password = new Password($password);
-        $confirmPassword = new Password($passwordConfirmed);
-        $communityId = new Uuid($communityId);
-        $user = User::registerUser($id, $email, $password, $confirmPassword, $communityId);
+        $user = User::registerUser($id, $email, $password, $passwordConfirmed, $communityId);
         
         $userId = $this->userRepository->save($user);
         $this->eventBus->publish(...$user->pullDomainEvents());

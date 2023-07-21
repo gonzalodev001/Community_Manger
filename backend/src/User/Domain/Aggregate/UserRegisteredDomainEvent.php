@@ -5,25 +5,23 @@ declare(strict_types=1);
 namespace App\User\Domain\Aggregate;
 
 use App\Shared\Domain\Bus\Event\DomainEvent;
-use App\Shared\Domain\ValueObject\Email;
-use App\Shared\Domain\ValueObject\Uuid;
-use App\User\Domain\ValueObject\Password;
+
 
 class UserRegisteredDomainEvent extends DomainEvent
 {
-    private Uuid $id;
+    private string $aggregateId;
     private string $email;
     //private Password $password;
     //private DateTime $createdAt;
     //private DateTime $updatedAt;
-    private array $roles;
+    //private array $roles;
     private  string $communityId;
 
-    public function __construct(string $id, string $email, string $communityId, string $eventId = null, string $occurredOn = null)
+    public function __construct(string $aggregateId, string $email, string $communityId, string $eventId = null, string $occurredOn = null)
     {
         $this->email = $email;
         $this->communityId = $communityId;
-        parent::__construct($id, $eventId, $occurredOn);
+        parent::__construct($aggregateId, $eventId, $occurredOn);
     }
 
     public static function eventName(): string

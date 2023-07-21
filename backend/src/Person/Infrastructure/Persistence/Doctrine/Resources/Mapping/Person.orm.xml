@@ -11,7 +11,6 @@
         <field name="lastName" length="100" column="last_name" />
         <field name="document" length="15" column="document" unique="true"/>
         <field name="phone" length="100" column="phone" unique="true"/>
-        <field name="userId" length="36" column="user_id" />
         <!--<field name="createdAt" type="datetime"  column="createdAt"/>
         <field name="updatedAt" type="datetime" column="updatedAt"/>-->
 

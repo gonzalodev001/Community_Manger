@@ -3,27 +3,22 @@
 
 namespace App\Person\Domain\Aggregate;
 
+use App\Shared\Domain\Aggregate\AggregateRoot;
 
-use App\Shared\Domain\ValueObject\Uuid;
-
-class Person
+class Person extends AggregateRoot
 {
-    //private Uuid $id;
     private string $id;
     private string $firstName;
     private string $lastName;
     private string $document;
     private string $phone;
-    //private Uuid $userId;
-    private string $userId;
 
-    public function __construct(
+    private function __construct(
         string $id,
         string $firstName,
         string $lastName,
         string $document,
         string $phone,
-        string $userId
     )
     {
         $this->id = $id;
@@ -31,7 +26,6 @@ class Person
         $this->lastName = $lastName;
         $this->document = $document;
         $this->phone = $phone;
-        $this->userId = $userId;
     }
 
     public function id(): string
@@ -59,14 +53,9 @@ class Person
         return $this->phone;
     }
 
-    public function userId(): string
+    public static function registerPerson(string $id, string $firstName, string $lastName, string $document, string $phone): self
     {
-        return $this->userId;
-    }
-
-    public static function registerPerson(string $id, string $firstName, string $lastName, string $document, string $phone, string $userId): self
-    {
-        return new self($id, $firstName, $lastName, $document, $phone, $userId);
+        return new self($id, $firstName, $lastName, $document, $phone);
     }
 
 }

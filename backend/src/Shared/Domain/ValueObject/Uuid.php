@@ -2,7 +2,6 @@
 
 namespace App\Shared\Domain\ValueObject;
 
-use Symfony\Component\Uid\NilUuid;
 use Symfony\Component\Uid\UuidV4;
 
 class Uuid
@@ -10,7 +9,7 @@ class Uuid
     public function __construct(private string $value)
     {
         $this->verify($value);
-        var_dump($this->value);
+        //var_dump($this->value);
     }
 
     public static function generate(): self
