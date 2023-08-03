@@ -1,19 +1,21 @@
+<script setup>
+
+</script>
 <template>
   <router-view />
 </template>
-<script>
-import { defineComponent } from "vue";
-import { api } from "boot/axios";
 
-export default defineComponent({
-  name: "App",
- beforeCreate() {
-    this.$store.dispatch('auth/init')
-    const token = this.$store.getters["auth/tokenGetter"]
-    console.log(token)
-    if (token) {
-      api.defaults.headers.common['Authorization'] = 'Bearer ' + token
-    }
-  }
-});
-</script>
+<style scoped>
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.vue:hover {
+  filter: drop-shadow(0 0 2em #42b883aa);
+}
+</style>

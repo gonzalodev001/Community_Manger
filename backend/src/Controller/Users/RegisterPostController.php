@@ -22,7 +22,7 @@ class RegisterPostController
     public function __invoke(Request $request): JsonResponse
     {
         $data = $request->toArray();
-        //dd($data['user']["email"], $data['person']['firstName']);
+        //dd($data['user']["id"], $data['person']['id']);
         $this->commandBus->dispatch(
             new RegisterUserCommand(
                 $data['user']['id'],

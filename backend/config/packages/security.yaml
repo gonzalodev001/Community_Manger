@@ -37,7 +37,7 @@ security:
         - { path: ^/api/community_types, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/communities, roles: IS_AUTHENTICATED_FULLY }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/api/fake, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

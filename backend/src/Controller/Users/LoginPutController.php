@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LoginPutController
 {
-    #[Route('/login_check', name:'_user_login', methods:['POST'])]
+    //#[Route('/login_check', name:'_user_login', methods:['POST'])]
     public function __invoke()
     {
         // TODO: Implement __invoke() method.

@@ -60,9 +60,10 @@ services:
     ports:
     - 8080:8080
     volumes:
-    #- /frontend/node_modules
+    #- type: bind
     - ./frontend:/frontend
-    command: /bin/sh -c "yarn && quasar dev"
+    #- /frontend/node_modules
+    command: /bin/sh -c "npm run dev"
     networks:
       - community-manager-network
 ###> doctrine/doctrine-bundle ###
