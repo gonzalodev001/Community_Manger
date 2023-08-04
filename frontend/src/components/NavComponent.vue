@@ -9,13 +9,13 @@
           <ul class="navbar-nav">
               <li class="nav-item dropdown">
                   <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                      Gonzalo Martinez
+                      {{ name }}
                       <img src="../assets/vue.svg" class="avatar img-fluid rounded" alt="">
                   </a>
                   <div class="dropdown-menu dropdown-menu-end">
                       <a href="#" class="dropdown-item">Profile</a>
                       <a href="#" class="dropdown-item">Settings</a>
-                      <a href="#" class="dropdown-item">Logout</a>
+                      <router-link to="/login" @click="logOut" class="dropdown-item">Logout</router-link>
                   </div>
               </li>
           </ul>
@@ -24,24 +24,36 @@
   <!--   Navbar End   -->
 </template>
 <script lang="js">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
+import { useAuthStore } from '../stores/auth';
+
 export default {
   setup() {
+    const userAuth = useAuthStore();
+    const name = ref(userAuth.user.name);
+
     function sidebarToggle() {
-      console.log("click")
-      //const sidebarToggle = document.querySelector("#sidebar-toggle");
+
       document.querySelector("#sidebar").classList.toggle("collapsed");
     }
+
     onMounted(() => {
-      
+
       const sidebarToggle = document.querySelector("#sidebar-toggle");
       sidebarToggle.addEventListener("click", function() {
           document.querySelector("#sidebar").classList.toggle("collapsed");
       });
     });
 
+    function logOut() {
+      userAuth.logOut();
+      //router.push({ path: "login" });
+    }
+
     return{
-      sidebarToggle
+      sidebarToggle,
+      name,
+      logOut
     }
   }
 }

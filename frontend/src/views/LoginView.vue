@@ -20,7 +20,7 @@
         Remember me
       </label>
     </div>
-    <button class="btn btn-primary w-100 py-2" type="submit" @click="hola">Sign in</button>
+    <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
     <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
     <p style="color: red"> {{ feedback.value }}</p>
   </form>
@@ -40,21 +40,12 @@ export default defineComponent({
     const feedback = ref('');
     //const router = useRouter();
 
-    function hola() {
-      console.log("click....");
-
-    }
-    console.log(email.value);
-    console.log(password.value);
-    async function login() {
-      console.log(email.value);
-      console.log(password.value);
+    function login() {
       if(!email.value || !password.value) {
         feedback = "campo vacío email o password";
       } else {
         const payload = { username: email.value, password: password.value };
-        console.log(payload);
-        const response = await authStore.doLoginAction(payload);
+        const response = authStore.doLoginAction(payload);
         if(response == false) {
           feedback.value = "Login error";
         } else {
@@ -67,7 +58,6 @@ export default defineComponent({
       email,
       password,
       feedback,
-      hola
     }
   }
 });

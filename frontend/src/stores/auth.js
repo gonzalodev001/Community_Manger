@@ -15,31 +15,32 @@ export const useAuthStore = defineStore('user',{
         }
     },
     actions: {
-        async doLoginAction(payload) {
-            console.log(JSON.stringify(payload));
-            //rawResponse = await fetch(`${this.baseURL}/api/login_check`, {
-            rawResponse = await fetch('/login_check', {
-                method: 'POST',
-                body: payload,
-                mode: 'no-cors',
+        doLoginAction(payload) {
+
+            fetch("http://localhost:8000/api/login_check", {
+                method: "POST",
+                body: JSON.stringify(payload),
                 headers: {
-                    'Accept': 'application/json, text/plain',
-                    'Content-Type': 'application/json',
-                },
+                    "Content-Type": "application/json"
+                }
+            }).then(async response => {
+                const data = await response.json();
+                console.log(response.ok)
+                console.log(data.token)
+                if(!response.ok) {
+                    this.token = "";
+                    const error = (data && data.message) || response.statusText;
+                    return false;
+                } else {
+                    this.token = data.token;
+                    this.isAuthenticated = true;
+                    this.initUser(this.token);
+                    //this.getUserPersonData(this.user.UserId);
+                    return true;
+                }
+            }).catch(error => {
+                console.error("There was an error! ", error);
             });
-            
-            const response = await rawResponse.json();
-            console.log(response);
-            if(response.status == false) {
-                this.token = "";
-                return false;
-            } else {
-                console.log(response.data);
-                this.token = response.data.token;
-                this.isAuthenticated = true;
-                this.initUser(this.toke);
-                return true;
-            }
         },
 
         logOut() {
@@ -60,6 +61,23 @@ export const useAuthStore = defineStore('user',{
               .join("")
             );
             this.user = JSON.parse(jsonPayload);
+        },
+
+        getUserPersonData(userId) {
+            fetch("",{
+                method: "GET",
+                body: JSON.stringify({ id: `${userId}`}),
+                headers: {
+                  "Content-Type": "·application/json",
+                  "Authorization": `Bearer ${useAuthStore.token}`
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                  if(data) {
+                    this.user.personalInformation = data.name;
+                  }
+            });
         }
     }
 });

@@ -10,12 +10,12 @@ export default defineConfig({
     },
     strictPort: true,
     port: 8080,
-    proxy: {
+    /*proxy: {
       "/api": {
         target: "http://127.0.0.1:8000",
         changeOrigin: true,
       }
-    }
+    }*/
   },
   plugins: [vue()],
 })

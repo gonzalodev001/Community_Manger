@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginView from "../views/LoginView.vue";
 import DashboardView from "../views/DashboardView.vue";
 import FormRegisterOwner from "../components/FormRegisterOwner.vue";
+import HealthCheck from "../views/HealthCheck.vue";
 
 const routes = [
     {
@@ -21,6 +22,11 @@ const routes = [
                 component: FormRegisterOwner
             }
         ]
+    },
+    {
+        path: "/health",
+        name: "health",
+        component: HealthCheck
     }
 ];
 

@@ -13,7 +13,7 @@ class FakeController extends AbstractController
     #[Route('/fake', methods: ['GET'])]
     public function fake(): JsonResponse
     {
-        return new JsonResponse('ok', Response::HTTP_OK);
+        return new JsonResponse(["data" => 'response from backend'], Response::HTTP_OK);
     }
 
 }
