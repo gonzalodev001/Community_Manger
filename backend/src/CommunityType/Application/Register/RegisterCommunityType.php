@@ -1,12 +1,12 @@
 <?php
 
-namespace App\CommunityType\Application;
+namespace App\CommunityType\Application\Register;
 
 use App\CommunityType\Domain\Aggregate\CommunityType;
 use App\CommunityType\Domain\Repository\CommunityTypeRepository;
 use App\Shared\Domain\ValueObject\Uuid;
 
-class CommunityTypeRegister
+class RegisterCommunityType
 {
     public function __construct(private CommunityTypeRepository $repository)
     {
@@ -14,8 +14,8 @@ class CommunityTypeRegister
 
     public function __invoke(string $id, string $name): void
     {
-        //$id = new Uuid($id);
-        $communityType = CommunityType::registerCommunityType($id, $name);
+        $uid = new Uuid($id);
+        $communityType = CommunityType::registerCommunityType($uid->value(), $name);
 
         $this->repository->save($communityType);
     }
