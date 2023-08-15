@@ -50,7 +50,8 @@
                 </a>
                 <ul id="communities" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Tipo de Comunidad</a>
+                        
+                        <router-link to="/community_type" class="sidebar-link">Tipo de Comunidad</router-link>
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link">Comunidad 2</a>
