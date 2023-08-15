@@ -4,33 +4,34 @@
 namespace App\Controller\Communities;
 
 
-use App\Community\Application\CommunityRegister;
+use App\Community\Application\Register\RegisterCommunityCommand;
+use App\Shared\Domain\Bus\Command\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Uid\Uuid;
 
 class RegisterPostController extends AbstractController
 {
 
-    public function __construct(private CommunityRegister $communityRegister)
+    public function __construct(private CommandBus $commandBus)
     {
     }
 
     #[Route('/communities', name: '_community_register', methods: ['POST'])]
     public function __invoke(Request $request): JsonResponse
     {
-        $id = Uuid::v4()->toRfc4122();
         $data = $request->toArray();
-        dd($data);die();
-        $this->communityRegister->__invoke(
-            $id,
-            $data['address'],
-            $data['municipality'],
-            $data['communityTypeId'],
-            $data['associationId']
+        //dd($data);die();
+        $this->commandBus->dispatch(
+            new RegisterCommunityCommand(
+                $data['id'],
+                $data['address'],
+                $data['municipality'],
+                $data['communityTypeId'],
+                $data['associationId']
+            )
         );
 
         return new JsonResponse('ok', Response::HTTP_OK);
