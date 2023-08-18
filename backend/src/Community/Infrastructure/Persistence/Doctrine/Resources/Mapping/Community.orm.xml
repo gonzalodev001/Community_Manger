@@ -11,6 +11,7 @@
         <field name="municipality" length="100" column="municipality"/>
         <field name="communityTypeId" length="36" column="community_type_id" />
         <field name="associationId" length="36" column="association_id"/>
+        <field name="cif" length="9" column="cif" unique="true"/>
         <!--<field name="createdAt" type="datetime"  column="createdAt"/>
         <field name="updatedAt" type="datetime" column="updatedAt"/>-->
 

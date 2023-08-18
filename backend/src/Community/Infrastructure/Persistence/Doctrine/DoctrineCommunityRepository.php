@@ -19,4 +19,12 @@ class DoctrineCommunityRepository implements CommunityRepository
         $this->entityManager->persist($community);
         $this->entityManager->flush();
     }
+
+    public function findByCif(string $cif): array
+    {
+        $repository = $this->entityManager->getRepository(Community::class);
+        $data = $repository->findBy(["cif" => $cif]);
+        
+        return $data;
+    }
 }

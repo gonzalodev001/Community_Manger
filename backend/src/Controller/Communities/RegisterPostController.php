@@ -23,14 +23,15 @@ class RegisterPostController extends AbstractController
     public function __invoke(Request $request): JsonResponse
     {
         $data = $request->toArray();
-        //dd($data);die();
+        
         $this->commandBus->dispatch(
             new RegisterCommunityCommand(
                 $data['id'],
                 $data['address'],
                 $data['municipality'],
                 $data['communityTypeId'],
-                $data['associationId']
+                $data['associationId'],
+                $data["cif"]
             )
         );
 

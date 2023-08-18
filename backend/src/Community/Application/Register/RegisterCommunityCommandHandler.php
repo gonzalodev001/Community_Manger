@@ -20,6 +20,8 @@ class RegisterCommunityCommandHandler implements CommandHandler
             $command->address(), 
             $command->municipality(), 
             $command->communityTypeId(), 
-            $command->associationId());
+            $command->associationId(),
+            $command->cif()
+        );
     }
 }

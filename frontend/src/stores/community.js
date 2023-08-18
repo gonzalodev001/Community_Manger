@@ -38,7 +38,7 @@ export const useCommunityStore = defineStore({
         searchAllItems() {
             const auth = useAuthStore();
             const token = localStorage.getItem("token");
-            fetch(`${auth.baseURL}/api/community_types`, {
+            return fetch(`${auth.baseURL}/api/community_types`, {
                 method: "GET",
                 mode: "cors",
                 headers: {
@@ -51,8 +51,46 @@ export const useCommunityStore = defineStore({
               .then(response => {
                 //console.log(response[0]);
                 this.rawItems = response;
-                //console.log(this.rawItems[1].name)
             });
+        },
+        
+        registerCommunity(id, address, municipality, communityTypeId, associationId, cif) {
+            const auth = useAuthStore();
+            const token = localStorage.getItem("token");
+            fetch(`${auth.baseURL}/api/communities`, {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({ 
+                    id: id, 
+                    address: address, 
+                    municipality: municipality,
+                    communityTypeId: communityTypeId,
+                    associationId: associationId,
+                    cif: cif
+                })
+            })
+              .then(res => res.json())
+              .then(response => {
+                console.log(response);
+            });           
+        },
+
+        searchAllCommunityItems() {
+            return fetch(`${auth.baseURL}/api/communities`,{
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }                
+            })
+             .then((response) => response.json());
         }
     }
 });
