@@ -11,13 +11,15 @@ class Community
     private string $municipality;
     private string $communityTypeId;
     private string $associationId;
+    private string $cif;
 
     private function __construct(
         string $id,
         string $address,
         string $municipality,
         string $communityTypeId,
-        string $associationId
+        string $associationId,
+        string $cif
     )
     {
         $this->id = $id;
@@ -25,6 +27,7 @@ class Community
         $this->municipality = $municipality;
         $this->communityTypeId = $communityTypeId;
         $this->associationId = $associationId;
+        $this->cif = $cif;
     }
 
     public function getAssociationId(): string
@@ -52,9 +55,14 @@ class Community
         return $this->communityTypeId;
     }
 
-    public static function registerCommunity(string $id, string $address, string $municipality, string $communityTypeId, string $associationId): Community
+    public function getCif(): string
     {
-        return new self($id, $address, $municipality, $communityTypeId, $associationId);
+        return $this->cif;
+    }
+
+    public static function registerCommunity(string $id, string $address, string $municipality, string $communityTypeId, string $associationId, string $cif): Community
+    {
+        return new self($id, $address, $municipality, $communityTypeId, $associationId, $cif);
     }
 
 }

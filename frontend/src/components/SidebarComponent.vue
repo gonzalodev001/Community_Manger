@@ -54,7 +54,7 @@
                         <router-link to="/community_type" class="sidebar-link">Tipo de Comunidad</router-link>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Comunidad 2</a>
+                        <router-link to="/community" class="sidebar-link">Comunidades</router-link>
                     </li>
                 </ul>
             </li>

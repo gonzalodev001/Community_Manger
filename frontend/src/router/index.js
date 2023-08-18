@@ -5,6 +5,7 @@ import DashboardView from "../views/DashboardView.vue";
 import FormRegisterOwner from "../components/FormRegisterOwner.vue";
 import HealthCheck from "../views/HealthCheck.vue";
 import CommunityTypes from "../components/CommunityTypes.vue";
+import Community from "../components/CommunityComponent.vue"
 
 const routes = [
     {
@@ -25,6 +26,10 @@ const routes = [
             {
                 path: "community_type",
                 component: CommunityTypes
+            },
+            {
+                path: "community",
+                component: Community
             }
         ]
     },

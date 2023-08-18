@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Community\Application\Register;
+namespace App\CommunityType\Application;
 
-use App\Shared\Domain\Bus\Command\Command;
-
-class RegisterCommunityCommand implements Command
+class CommunityResponse
 {
     public function __construct(
-        private readonly string $id, 
-        private readonly string $address, 
-        private readonly string $municipality, 
-        private readonly string $communityTypeId, 
+        private readonly string $id,
+        private readonly string $address,
+        private readonly string $municipality,
+        private readonly string $communityTypeId,
         private readonly string $associationId,
         private readonly string $cif
+
     )
     {
         
@@ -44,9 +43,10 @@ class RegisterCommunityCommand implements Command
     {
         return $this->associationId;
     }
-
+    
     public function cif(): string
     {
         return $this->cif;
     }
+    
 }
