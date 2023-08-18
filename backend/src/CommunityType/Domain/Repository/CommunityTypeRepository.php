@@ -7,4 +7,5 @@ use App\CommunityType\Domain\Aggregate\CommunityType;
 interface CommunityTypeRepository
 {
     public function save(CommunityType $communityType): void;
+    public function searchAll(): array;
 }

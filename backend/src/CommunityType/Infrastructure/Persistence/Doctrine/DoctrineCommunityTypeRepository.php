@@ -19,4 +19,10 @@ class DoctrineCommunityTypeRepository implements CommunityTypeRepository
         $this->entityManager->persist($communityType);
         $this->entityManager->flush();
     }
+
+    public function searchAll(): array
+    {
+        $repository = $this->entityManager->getRepository(CommunityType::class);
+        return $repository->findAll();
+    }
 }

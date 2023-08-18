@@ -4,10 +4,10 @@ export const useAuthStore = defineStore('user',{
 
     state: () => ({
         user: {},
-        token: "",
+        token: null,
         isAuthenticated: false,
         error: null,
-        baseURL: "http://127.0.0.1:8000"
+        baseURL: "http://localhost:8000"
     }),
     getters: {
         getUser(state) {
@@ -25,15 +25,16 @@ export const useAuthStore = defineStore('user',{
                 }
             }).then(async response => {
                 const data = await response.json();
-                console.log(response.ok)
-                console.log(data.token)
-                if(!response.ok) {
-                    this.token = "";
+                
+                if(response.ok == false) {
+                    this.token = null;
                     const error = (data && data.message) || response.statusText;
                     return false;
                 } else {
                     this.token = data.token;
                     this.isAuthenticated = true;
+
+                    window.localStorage.setItem("token", data.token);
                     this.initUser(this.token);
                     //this.getUserPersonData(this.user.UserId);
                     return true;

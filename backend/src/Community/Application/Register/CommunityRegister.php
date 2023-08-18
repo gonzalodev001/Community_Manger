@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Community\Application;
+namespace App\Community\Application\Register;
 
 use App\Community\Domain\Aggregate\Community;
 use App\Community\Domain\Repository\CommunityRepository;

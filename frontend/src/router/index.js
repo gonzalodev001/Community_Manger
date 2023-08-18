@@ -4,6 +4,7 @@ import LoginView from "../views/LoginView.vue";
 import DashboardView from "../views/DashboardView.vue";
 import FormRegisterOwner from "../components/FormRegisterOwner.vue";
 import HealthCheck from "../views/HealthCheck.vue";
+import CommunityTypes from "../components/CommunityTypes.vue";
 
 const routes = [
     {
@@ -20,6 +21,10 @@ const routes = [
             {
                 path: "owner",
                 component: FormRegisterOwner
+            },
+            {
+                path: "community_type",
+                component: CommunityTypes
             }
         ]
     },
