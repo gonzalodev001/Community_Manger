@@ -15,6 +15,7 @@ class UserLogin
     public function __invoke(string $username, string $password)
     {
         $user = $this->repository->findUser($username);
-        $user->Login($password);
+        return $user;
+        //$user->Login($password); // Debería comprobar que la password es correcta y el usuario la entidad de domino User??
     }
 }

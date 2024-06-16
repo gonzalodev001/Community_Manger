@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\CommunityType\Application;
+namespace App\Community\Application;
 
 use App\Shared\Domain\Bus\Query\Response;
+use App\CommunityType\Application\CommunityResponse;
 
 class CommunitiesResponse implements Response
 {

@@ -7,6 +7,9 @@ use App\User\Domain\Repository\UserRepository;
 use App\User\Infrastructure\Framework\Entity\SymfonyUser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\User\Domain\ValueObject\Password;
+use App\Shared\Domain\ValueObject\Uuid;
+use App\Shared\Domain\ValueObject\Email;
 
 class DoctrineUserRepository implements UserRepository
 {
@@ -40,7 +43,21 @@ class DoctrineUserRepository implements UserRepository
 
     public function findUser(string $userName): ?User
     {
-        //$user = new User("", );
-        return null;
+        $symfonyUser = $this->entityManager
+            ->getRepository(SymfonyUser::class)
+            ->findOneBy(['email' => $userName]);
+        if(!$symfonyUser) {
+            return null;
+        }
+        //TODO: Comprobar que la password es correcta con el hash
+        // $this->passwordHasher->isPasswordValid($user, $password)
+        
+        return User::create(
+            new Uuid($symfonyUser->getId()), 
+            new Email($symfonyUser->getEmail()), 
+            new Password($symfonyUser->getHashedPassword()), 
+            $symfonyUser->getRoles(), 
+            new Uuid($symfonyUser->getCommunityId())
+        );
     }
 }

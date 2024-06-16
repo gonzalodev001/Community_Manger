@@ -11,7 +11,6 @@ class Password
 
     public function __construct(private string $password)
     {
-        self::validatePassword($password);
     }
 
     public function password(): string
@@ -19,9 +18,9 @@ class Password
         return $this->password;
     }
 
-    public static function validatePassword(string $password): void
+    public static function validatePassword(): void
     {
-        if (!preg_match(self::pattern, $password)) {
+        if (!preg_match(self::pattern, $this->password)) {
             throw new InvalidPassword($password);
         }
     }

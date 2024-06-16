@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\CommunityType\Application;
+namespace App\Community\Application;
 
 class CommunityResponse
 {

@@ -20,7 +20,7 @@ class User extends AggregateRoot
     private array $roles;
     private  Uuid $communityId;
 
-    private function __construct(Uuid $id, Email $email, Password $password, Uuid $communityId)
+    private function __construct(Uuid $id, Email $email, Password $password, array $roles, Uuid $communityId)
     {
         $this->id = $id;
         $this->email = $email;
@@ -99,5 +99,11 @@ class User extends AggregateRoot
     public function markAsUpdated(): void
     {
         $this->updatedAt = new DateTime();
+    }
+
+    public static function create(Uuid $id, Email $email, array $roles, Uuid $communityId): self
+    {
+        $user = new self ($id, $email, new Password(''), $roles, $communityId);
+        return $user;
     }
 }

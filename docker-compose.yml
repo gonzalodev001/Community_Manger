@@ -6,11 +6,11 @@ services:
     build:
       context: ./docker/nginx
       args:
-        UID: $U_ID
+        UID: ${UID:-1000}
     ports:
       - 8000:80
     volumes:
-      - ./backend/public:/appdata/www/public
+      - ${PWD}/backend/public:/appdata/www/public
     networks:
       - community-manager-network
     depends_on:
@@ -22,15 +22,15 @@ services:
     build:
       context: ./docker/php
       args:
-        UID: $U_ID
+        UID: ${UID:-1000}
     environment:
       PHP_IDE_CONFIG: serverName=Docker
       PHP_XDEBUG_ENABLED: 1
-      XDEBUG_CONFIG: remote_host=172.17.0.1 remote_port=9005
+      XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9005
     volumes:
-      - ./backend:/appdata/www
-      - ./docker/php/xdebug-linux.ini:/usr/local/etc/php/conf.d/xdebug.ini
-      - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
+      - ${PWD}/backend:/appdata/www
+      - ${PWD}/docker/php/xdebug-linux.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ${HOME}/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
     networks:
       - community-manager-network
     depends_on:
@@ -55,13 +55,13 @@ services:
       context: ./frontend
       target: 'build-stage'
       args:
-        UID: $U_ID
+        UID: ${UID:-1000}
     tty: true
     ports:
     - 8080:8080
     volumes:
     #- type: bind
-    - ./frontend:/frontend
+    - ${PWD}/frontend:/frontend
     #- /frontend/node_modules
     command: /bin/sh -c "npm run dev"
     networks:
