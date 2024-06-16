@@ -26,7 +26,7 @@ class User extends AggregateRoot
         $this->email = $email;
         $this->password = $password;
         $this->createdAt = new DateTime();
-        $this->roles[] = 'ROLE_USER';
+        $this->roles[] = $roles ?? 'ROLE_USER';
         $this->communityId = $communityId;
         $this->markAsUpdated();
     }
@@ -75,7 +75,7 @@ class User extends AggregateRoot
     {
         self::validatePasswords($password, $confirmPassword);
 
-        $user = new self ($id, $email, $password, $communityId);
+        $user = new self ($id, $email, $password, [], $communityId);
         
         $user->record(new UserRegisteredDomainEvent($id->value(), $email->email(), $communityId->value()));
 
@@ -101,9 +101,9 @@ class User extends AggregateRoot
         $this->updatedAt = new DateTime();
     }
 
-    public static function create(Uuid $id, Email $email, array $roles, Uuid $communityId): self
+    public static function create(Uuid $id, Email $email, Password $password, array $roles, Uuid $communityId): self
     {
-        $user = new self ($id, $email, new Password(''), $roles, $communityId);
+        $user = new self ($id, $email, $password, $roles, $communityId);
         return $user;
     }
 }

@@ -41,16 +41,15 @@ class DoctrineUserRepository implements UserRepository
         return $symfonyUser->getId();
     }
 
-    public function findUser(string $userName): ?User
+    public function findUser(string $userName, string $password): ?User
     {
         $symfonyUser = $this->entityManager
             ->getRepository(SymfonyUser::class)
             ->findOneBy(['email' => $userName]);
-        if(!$symfonyUser) {
+        
+        if(!$symfonyUser || !$this->passwordHasher->isPasswordValid($symfonyUser, $password)) {
             return null;
         }
-        //TODO: Comprobar que la password es correcta con el hash
-        // $this->passwordHasher->isPasswordValid($user, $password)
         
         return User::create(
             new Uuid($symfonyUser->getId()), 
