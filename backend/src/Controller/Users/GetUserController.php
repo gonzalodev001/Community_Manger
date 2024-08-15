@@ -27,7 +27,7 @@ class GetUserController
         }
         
         return new JsonResponse([
-            'OK' => true, 
+            'success' => true, 
             'data'=> [
                 'user' => [
                     'id' => $user->getId(),
@@ -39,7 +39,6 @@ class GetUserController
                 ]
             ], 
             'message' =>'User found', 
-            'code' => 200, 
             'errors' => []
         ], 200);
     }

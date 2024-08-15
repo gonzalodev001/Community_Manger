@@ -50,7 +50,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
     const authStore = useAuthStore();
     if(to.matched.some(record => record.meta.requiresAuth)) {
-        if(!authStore.isAuthenticated) {console.log(authStore.isAuthenticated);
+        if(!authStore.isAuthenticated) {
             await authStore.fetchUser();
         }
         if(!authStore.isAuthenticated) {

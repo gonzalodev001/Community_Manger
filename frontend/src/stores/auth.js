@@ -7,7 +7,7 @@ export const useAuthStore = defineStore('user',{
         token: null,
         isAuthenticated: false,
         error: null,
-        baseURL: "http://localhost:8000"
+        baseURL: "http://127.0.0.1:8000"
     }),
     getters: {
         getUser(state) {
@@ -15,31 +15,34 @@ export const useAuthStore = defineStore('user',{
         }
     },
     actions: {
-        doLoginAction(payload) {
-
-            fetch("http://localhost:8000/api/login_check", {
-                method: "POST",
-                body: JSON.stringify(payload),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then(async response => {
+        async doLoginAction(payload) {
+            try {
+                const response = await fetch("http://localhost:8000/api/login_check", {
+                    method: "POST",
+                    body: JSON.stringify(payload),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: 'include',
+                });
+            
                 const data = await response.json();
-                console.log(data);
-                if(data.OK == false) {
+                if(data.success) {
+                    this.isAuthenticated = true;
+                    await this.fetchUser();
+                    //this.getUserPersonData(this.user.UserId); password: 123A567b9
+                    return true;
+                } else {
                     this.token = null;
                     const error = (data && data.message) || response.statusText;
                     return false;
-                } else {
-                    this.isAuthenticated = true;
-                    console.log(this.isAuthenticated);
-                    //this.fetchUser();
-                    //this.getUserPersonData(this.user.UserId);
-                    return true;
                 }
-            }).catch(error => {
+            } catch(error) {
                 console.error("There was an error! ", error);
-            });
+                this.isAuthenticated = false;
+                this.user = null;
+                return false;
+            }
         },
 
         logOut() {
@@ -56,13 +59,12 @@ export const useAuthStore = defineStore('user',{
                     },
                     credentials: 'include', // include cookies in requests
                 });
-
                 if (!response.ok) {
                     throw new Error('Failed to fetch user data');
                 }
 
                 const data = await response.json();
-                this.user = data;
+                this.user = data.data.user;console.log(this.user, data.data);
             } catch (error) {
                 this.user = null;
                 this.isAuthenticated = false;

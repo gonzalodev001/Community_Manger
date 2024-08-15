@@ -1,24 +1,24 @@
 nelmio_cors:
     defaults:
-        allow_credentials: false
-        origin_regex: false
-        allow_origin: []
-        allow_methods: []
-        allow_headers: []
-        expose_headers: []
+        allow_credentials: true
+        origin_regex: true
+        allow_origin: ['http://localhost:8080']
+        allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
+        allow_headers: ['Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept', 'Cache-Control', 'DNT', 'Keep-Alive', 'User-Agent','Cookie']
+        expose_headers: ['Authorization']
         max_age: 0
         hosts: []
         forced_allow_origin_value: ~
     paths:
         '^/api/':
-            allow_origin: ['*']
-            allow_headers: ['X-Custom-Auth', 'Content-type', 'Authorization']
+            allow_origin: ['http://localhost:8080']
+            allow_headers: ['Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept', 'Cache-Control', 'DNT', 'Keep-Alive', 'User-Agent','Cookie']
             allow_methods: ['POST','PUT','GET','DELETE']
             max_age: 3600
         '^/':
             origin_regex: true
             allow_origin: ['^http://localhost:[0-9]+', 'Authorization']
-            allow_headers: [ 'X-Custom-Auth']
+            allow_headers: [ 'X-Custom-Auth', 'Content-type', 'Authorization','Cookie' ]
             allow_methods: [ 'POST','PUT','GET','DELETE' ]
             max_age: 3600
             hosts: ['^api\.']
