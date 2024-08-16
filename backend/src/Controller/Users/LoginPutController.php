@@ -48,10 +48,18 @@ class LoginPutController
             $user->communityId()->value()
         );
         $token = $this->tokenManager->create($user);
-        $response = new JsonResponse();
-        $response->headers->clearCookie('XSRF-TOKEN');
-        $response->headers->clearCookie('XSRF-TOKEN');
-        $response->headers->setCookie(Cookie::create('XSRF-TOKEN', $token));
+        $response = new JsonResponse([
+            'success' => true, 
+            'data'=>[], 
+            'message' =>'Login successful', 
+            'code' => 200, 
+            'errors' => []
+        ], 200);//JsonResponse::HTTP_OK
+        //$response->headers->clearCookie('XSRF-TOKEN');
+        //$response->headers->setCookie(Cookie::create('XSRF-TOKEN', $token));
+        $response->headers->setCookie(
+            new Cookie('TOKEN', $token, 0, '/', null, true, true, false, 'Strict')
+        );
         return $response;
     }
 

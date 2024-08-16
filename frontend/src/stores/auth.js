@@ -7,7 +7,7 @@ export const useAuthStore = defineStore('user',{
         token: null,
         isAuthenticated: false,
         error: null,
-        baseURL: "http://localhost:8000"
+        baseURL: "http://127.0.0.1:8000"
     }),
     getters: {
         getUser(state) {
@@ -15,33 +15,34 @@ export const useAuthStore = defineStore('user',{
         }
     },
     actions: {
-        doLoginAction(payload) {
-
-            fetch("http://localhost:8000/api/login_check", {
-                method: "POST",
-                body: JSON.stringify(payload),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then(async response => {
+        async doLoginAction(payload) {
+            try {
+                const response = await fetch("http://localhost:8000/api/login_check", {
+                    method: "POST",
+                    body: JSON.stringify(payload),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: 'include',
+                });
+            
                 const data = await response.json();
-                
-                if(response.ok == false) {
+                if(data.success) {
+                    this.isAuthenticated = true;
+                    await this.fetchUser();
+                    //this.getUserPersonData(this.user.UserId); password: 123A567b9
+                    return true;
+                } else {
                     this.token = null;
                     const error = (data && data.message) || response.statusText;
                     return false;
-                } else {
-                    this.token = data.token;
-                    this.isAuthenticated = true;
-
-                    window.localStorage.setItem("token", data.token);
-                    this.initUser(this.token);
-                    //this.getUserPersonData(this.user.UserId);
-                    return true;
                 }
-            }).catch(error => {
+            } catch(error) {
                 console.error("There was an error! ", error);
-            });
+                this.isAuthenticated = false;
+                this.user = null;
+                return false;
+            }
         },
 
         logOut() {
@@ -49,19 +50,25 @@ export const useAuthStore = defineStore('user',{
             localStorage.removeItem("token");
         },
 
-        initUser(token){
-            const base64Url = token.split(".")[1];
-            const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-            const jsonPayload = decodeURIComponent(
-              window
-            .atob(base64)
-              .split("")
-              .map(function (c) {
-                return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-              })
-              .join("")
-            );
-            this.user = JSON.parse(jsonPayload);
+        async fetchUser() {
+            try {
+                const response = await fetch('http://localhost:8000/api/users', {
+                    method: 'GET',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: 'include', // include cookies in requests
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+
+                const data = await response.json();
+                this.user = data.data.user;console.log(this.user, data.data);
+            } catch (error) {
+                this.user = null;
+                this.isAuthenticated = false;
+            }
         },
 
         getUserPersonData(userId) {
